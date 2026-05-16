@@ -1,379 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#11170f" />
-  <meta name="description" content="Cannibal — a quiet Midwest memory page slowly corrupted by signal, appetite, and review." />
-  <title>Cannibal</title>
-  <style>
-    :root {
-      --black: #080908;
-      --near: #11170f;
-      --paper: #f2eadb;
-      --cream: #fff6e4;
-      --green: #89a56f;
-      --moss: #46583d;
-      --yellow: #f2d16b;
-      --blood: #8a1f1f;
-      --pink: #ff3fc1;
-      --cyan: #4cf3ff;
-      --soft: rgba(255, 246, 228, 0.75);
-      --glass: rgba(12, 16, 12, 0.72);
-      --line: rgba(255, 246, 228, 0.18);
-      --shadow: 0 28px 80px rgba(0,0,0,.42);
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background:
-        linear-gradient(rgba(6,7,6,.55), rgba(6,7,6,.82)),
-        url('./assets/midwest-memory-bg.svg');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      color: var(--cream);
-      font-family: "Bahnschrift", "Arial Narrow", system-ui, sans-serif;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image: url('./assets/noise-overlay.svg');
-      background-size: 320px;
-      opacity: .34;
-      mix-blend-mode: screen;
-      z-index: 20;
-    }
-
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: .12;
-      background:
-        repeating-linear-gradient(0deg, transparent 0 3px, rgba(255,255,255,.12) 4px, transparent 5px),
-        radial-gradient(circle at center, transparent 35%, rgba(0,0,0,.75));
-      z-index: 21;
-      animation: scan 6s linear infinite;
-    }
-
-    @keyframes scan {
-      0% { transform: translateY(-12px); }
-      100% { transform: translateY(12px); }
-    }
-
-    a { color: inherit; text-decoration: none; }
-    .wrap { width: min(1120px, calc(100% - 32px)); margin: 0 auto; position: relative; z-index: 2; }
-    header { position: sticky; top: 0; z-index: 30; backdrop-filter: blur(18px); background: rgba(8,9,8,.72); border-bottom: 1px solid var(--line); }
-    .nav { display: flex; align-items: center; justify-content: space-between; min-height: 68px; gap: 16px; }
-    .brand { display: flex; align-items: center; gap: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 800; }
-
-    .mark {
-      width: 34px;
-      aspect-ratio: 1;
-      border-radius: 999px;
-      background:
-        radial-gradient(circle at 35% 30%, var(--yellow), transparent 26%),
-        radial-gradient(circle at 66% 62%, var(--blood), transparent 36%),
-        linear-gradient(135deg, var(--green), var(--near));
-      box-shadow: 0 0 22px rgba(242,209,107,.22), inset 0 0 0 1px rgba(255,255,255,.24);
-    }
-
-    nav { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
-
-    nav a, button {
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.045);
-      color: var(--cream);
-      padding: 10px 13px;
-      border-radius: 999px;
-      font: inherit;
-      cursor: pointer;
-      transition: .22s ease;
-    }
-
-    nav a:hover, button:hover {
-      transform: translateY(-2px);
-      border-color: rgba(242,209,107,.55);
-      box-shadow: 0 0 24px rgba(242,209,107,.12);
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 32px;
-      min-height: calc(100vh - 68px);
-      align-items: center;
-      padding: 54px 0 70px;
-    }
-
-    .kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      margin-bottom: 20px;
-      padding: 9px 13px;
-      border: 1px solid rgba(242,209,107,.32);
-      border-radius: 999px;
-      background: rgba(242,209,107,.08);
-      color: var(--yellow);
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      font-size: .78rem;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(4.2rem, 13vw, 10.5rem);
-      line-height: .78;
-      letter-spacing: -.08em;
-      text-transform: uppercase;
-      text-shadow: 2px 0 rgba(255,63,193,.55), -2px 0 rgba(76,243,255,.42), 0 22px 52px rgba(0,0,0,.62);
-    }
-
-    .subtitle {
-      max-width: 680px;
-      margin: 28px 0 0;
-      color: rgba(255,246,228,.78);
-      font-size: clamp(1.1rem, 2vw, 1.35rem);
-      line-height: 1.52;
-    }
-
-    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
-
-    .primary {
-      background: linear-gradient(135deg, rgba(242,209,107,.92), rgba(137,165,111,.85));
-      color: #12140d;
-      border: 0;
-      font-weight: 900;
-      box-shadow: 0 18px 50px rgba(242,209,107,.18);
-    }
-
-    .photo-card {
-      position: relative;
-      min-height: 520px;
-      border: 1px solid rgba(255,246,228,.22);
-      border-radius: 32px;
-      overflow: hidden;
-      background: linear-gradient(rgba(255,255,255,.02), rgba(0,0,0,.28));
-      backdrop-filter: blur(5px);
-      box-shadow: var(--shadow);
-      isolation: isolate;
-    }
-
-    .photo-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 35% 22%, rgba(255,244,199,.28), transparent 24%),
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.42));
-      mix-blend-mode: screen;
-    }
-
-    .photo-card::after {
-      content: "hold the frame until it starts looking back";
-      position: absolute;
-      left: 24px;
-      right: 24px;
-      bottom: 24px;
-      padding: 18px;
-      border: 1px solid rgba(255,246,228,.18);
-      border-radius: 20px;
-      background: rgba(8,9,8,.58);
-      color: rgba(255,246,228,.78);
-      letter-spacing: .04em;
-      text-transform: uppercase;
-      font-size: .78rem;
-      backdrop-filter: blur(14px);
-    }
-
-    .float-note {
-      position: absolute;
-      top: 30px;
-      right: 24px;
-      max-width: 190px;
-      padding: 14px;
-      border-radius: 18px;
-      background: rgba(255,246,228,.84);
-      color: #1a1d13;
-      transform: rotate(3deg);
-      box-shadow: 0 16px 44px rgba(0,0,0,.25);
-      font-size: .9rem;
-      line-height: 1.35;
-    }
-
-    section { padding: 72px 0; }
-    .section-head { display: grid; grid-template-columns: .8fr 1.2fr; gap: 24px; align-items: end; margin-bottom: 24px; }
-
-    h2 {
-      margin: 0;
-      font-size: clamp(2.5rem, 6vw, 5.2rem);
-      line-height: .88;
-      letter-spacing: -.05em;
-      text-transform: uppercase;
-    }
-
-    .section-head p, .card p, .review p { color: rgba(255,246,228,.75); line-height: 1.58; }
-    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-
-    .card, .review, .panel {
-      border: 1px solid var(--line);
-      border-radius: 26px;
-      background: var(--glass);
-      box-shadow: 0 18px 60px rgba(0,0,0,.24);
-      backdrop-filter: blur(16px);
-    }
-
-    .card { padding: 24px; min-height: 260px; position: relative; overflow: hidden; }
-    .card::after { content: attr(data-number); position: absolute; right: 18px; bottom: -8px; font-size: 6rem; opacity: .065; font-weight: 900; }
-    .card h3, .review h3 { margin: 0 0 10px; font-size: 1.35rem; text-transform: uppercase; letter-spacing: .03em; }
-
-    .signal { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: stretch; }
-    .panel { padding: 28px; min-height: 330px; }
-    .meter { display: grid; gap: 12px; margin-top: 22px; }
-
-    .bar {
-      height: 13px;
-      border-radius: 999px;
-      overflow: hidden;
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.09);
-    }
-
-    .bar span {
-      display: block;
-      height: 100%;
-      width: var(--w);
-      background: linear-gradient(90deg, var(--green), var(--yellow), var(--blood), var(--pink), var(--cyan));
-      box-shadow: 0 0 18px rgba(76,243,255,.22);
-      transition: width .4s ease;
-    }
-
-    .quote { font-size: clamp(1.4rem, 3vw, 2.4rem); line-height: 1.12; letter-spacing: -.035em; margin: 0; }
-    .reviews { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    .review { padding: 24px; }
-    .stars { color: var(--yellow); letter-spacing: .16em; margin-bottom: 12px; }
-
-    .terminal {
-      border-radius: 26px;
-      overflow: hidden;
-      border: 1px solid rgba(76,243,255,.24);
-      background: rgba(2,5,5,.78);
-      box-shadow: 0 0 60px rgba(76,243,255,.09);
-    }
-
-    .terminal-top { display: flex; gap: 7px; padding: 13px 16px; background: rgba(255,255,255,.06); border-bottom: 1px solid rgba(255,255,255,.08); }
-    .dot { width: 10px; aspect-ratio: 1; border-radius: 999px; background: var(--yellow); opacity: .8; }
-    .dot:nth-child(2) { background: var(--pink); }
-    .dot:nth-child(3) { background: var(--cyan); }
-
-    pre {
-      margin: 0;
-      padding: 22px;
-      overflow: auto;
-      color: rgba(196,255,205,.86);
-      line-height: 1.55;
-      font-size: .95rem;
-      white-space: pre-wrap;
-    }
-
-    footer { border-top: 1px solid var(--line); padding: 28px 0; color: rgba(255,246,228,.58); font-size: .92rem; }
-    .glitch { animation: glitch 4.6s infinite steps(1); }
-
-    @keyframes glitch {
-      0%, 92%, 100% { filter: none; transform: translate(0); }
-      93% { filter: hue-rotate(55deg); transform: translate(2px,-1px); }
-      94% { filter: contrast(1.4); transform: translate(-2px,1px); }
-      95% { filter: none; transform: translate(0); }
-    }
-
-    .corrupt .photo-card,
-    .corrupt .card,
-    .corrupt .panel,
-    .corrupt .review {
-      border-color: rgba(255,63,193,.33);
-      box-shadow: 0 0 55px rgba(255,63,193,.08), var(--shadow);
-    }
-
-    .corrupt h1 {
-      text-shadow: 4px 0 rgba(255,63,193,.8), -4px 0 rgba(76,243,255,.72), 0 24px 60px rgba(0,0,0,.72);
-    }
-
-    @media (max-width: 860px) {
-      body { background-attachment: scroll; }
-      .nav { align-items: flex-start; padding: 14px 0; flex-direction: column; }
-      nav { justify-content: flex-start; }
-      .hero, .section-head, .signal { grid-template-columns: 1fr; }
-      .hero { padding-top: 34px; }
-      .photo-card { min-height: 460px; }
-      .grid, .reviews { grid-template-columns: 1fr; }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#090909" />
+<meta name="description" content="Matthew Carpenter — custom computers, repair, and industrial Midwest systems." />
+<title>Matthew Carpenter — Cannibal Computers</title>
+<style>
+:root {
+  --bg:#070707; --steel:#171717; --panel:rgba(16,16,16,.84); --rust:#a83b2b;
+  --ember:#ff7842; --cream:#f4ead8; --muted:rgba(244,234,216,.72);
+  --line:rgba(244,234,216,.13); --green:#8fa172; --shadow:0 24px 70px rgba(0,0,0,.55);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--cream); font-family:Bahnschrift,"Arial Narrow",system-ui,sans-serif;
+  background:linear-gradient(rgba(0,0,0,.68),rgba(0,0,0,.92)),url('./assets/midwest-memory-bg.svg');
+  background-size:cover; background-attachment:fixed; overflow-x:hidden;
+}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;background:url('./assets/noise-overlay.svg');background-size:320px;opacity:.22;mix-blend-mode:screen}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:79;opacity:.13;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(255,255,255,.12) 4px,transparent 5px),radial-gradient(circle at center,transparent 42%,rgba(0,0,0,.72))}
+a{color:inherit;text-decoration:none}.wrap{width:min(1220px,calc(100% - 34px));margin:auto;position:relative;z-index:2}
+header{position:fixed;top:0;left:0;right:0;z-index:60;backdrop-filter:blur(16px);background:rgba(4,4,4,.72);border-bottom:1px solid var(--line)}
+.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:18px}.logo{display:flex;align-items:center;gap:12px;text-transform:uppercase;letter-spacing:.14em;font-weight:900;cursor:pointer}.logo img{height:46px;max-width:270px;object-fit:contain}
+nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}nav a,.btn,button{border:1px solid var(--line);background:rgba(255,255,255,.035);color:var(--cream);padding:11px 14px;font:inherit;text-transform:uppercase;letter-spacing:.11em;cursor:pointer;transition:.22s ease}nav a:hover,.btn:hover,button:hover{transform:translateY(-2px);border-color:rgba(255,120,66,.55);box-shadow:0 0 26px rgba(255,120,66,.12)}
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center;padding:110px 0 70px}.kicker{color:var(--ember);letter-spacing:.28em;text-transform:uppercase;font-size:.82rem;margin-bottom:18px}h1{font-size:clamp(4rem,9vw,8.8rem);line-height:.82;margin:0;text-transform:uppercase;letter-spacing:-.055em;text-shadow:3px 0 rgba(255,120,66,.45),-3px 0 rgba(76,243,255,.18),0 28px 58px #000}.hero p,.section-copy,.card p,.specs p,footer p,li{color:var(--muted);line-height:1.65}.hero p{font-size:1.17rem;max-width:610px}.button-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.btn.primary{background:linear-gradient(135deg,var(--rust),#e65d38);border-color:transparent;font-weight:900}
+.photo-frame{min-height:710px;position:relative;overflow:hidden;border:1px solid rgba(244,234,216,.16);background:#111;box-shadow:var(--shadow);isolation:isolate}.photo-frame img.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.05) saturate(.92) brightness(.74)}.photo-frame::before{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(90deg,rgba(0,0,0,.66),transparent 42%),linear-gradient(0deg,rgba(0,0,0,.72),transparent 45%),radial-gradient(circle at 70% 20%,rgba(255,120,66,.20),transparent 28%)}.seal{position:absolute;right:22px;bottom:22px;width:170px;z-index:3;opacity:.82}.note{position:absolute;left:22px;bottom:26px;z-index:4;max-width:360px;padding:18px;background:rgba(0,0,0,.62);border:1px solid rgba(244,234,216,.17);backdrop-filter:blur(12px);text-transform:uppercase;letter-spacing:.08em;font-size:.8rem;color:rgba(244,234,216,.78)}
+section{padding:88px 0}.section-title{font-size:clamp(2.5rem,6vw,5.5rem);line-height:.88;margin:0 0 18px;text-transform:uppercase;letter-spacing:-.04em}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}.card,.specs,.panel{background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);backdrop-filter:blur(10px)}.card{padding:26px;min-height:245px}.card h3,.specs h3,.panel h3{margin:0 0 12px;text-transform:uppercase;letter-spacing:.08em}.divider{width:100%;margin:44px 0 4px;opacity:.88}.sell{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch}.pc-visual{min-height:500px;border:1px solid var(--line);box-shadow:var(--shadow);position:relative;overflow:hidden;background:radial-gradient(circle at 68% 38%,rgba(255,120,66,.34),transparent 18%),radial-gradient(circle at 34% 50%,rgba(76,243,255,.12),transparent 24%),linear-gradient(135deg,#252525,#050505)}.pc-visual::before{content:"";position:absolute;inset:10%;border:2px solid rgba(244,234,216,.10);box-shadow:inset 0 0 40px #000,0 0 40px rgba(255,120,66,.13)}.pc-visual::after{content:"CUSTOM DESKTOP\A CLEAN • TESTED • READY";white-space:pre;position:absolute;left:28px;bottom:28px;color:var(--cream);letter-spacing:.14em;line-height:1.8}.specs{padding:34px}.spec-list{display:grid;gap:12px;margin-top:22px}.spec{display:flex;justify-content:space-between;gap:18px;padding-bottom:11px;border-bottom:1px solid var(--line)}.price{font-size:3.2rem;margin:24px 0 0;color:var(--cream)}.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:32px}.tile{aspect-ratio:1;background:linear-gradient(135deg,#1f1f1f,#050505);border:1px solid var(--line);position:relative;overflow:hidden}.tile::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at center,rgba(255,120,66,.23),transparent 35%),linear-gradient(180deg,transparent,rgba(0,0,0,.65))}.tile span{position:absolute;left:14px;bottom:14px;text-transform:uppercase;letter-spacing:.12em;font-size:.78rem;color:rgba(244,234,216,.78)}
+footer{background:#050505;border-top:1px solid var(--line);padding:56px 0 110px}.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:26px}ul{list-style:none;padding:0;margin:0}.open-sign{position:fixed;right:18px;bottom:18px;z-index:75;padding:13px 16px;background:#120706;border:1px solid rgba(255,120,66,.42);color:#ff7842;letter-spacing:.18em;text-transform:uppercase;box-shadow:0 0 24px rgba(255,120,66,.22);animation:flicker 4s infinite}@keyframes flicker{0%,18%,22%,100%{opacity:1}20%{opacity:.4}21%{opacity:.8}}
+.player{position:fixed;left:18px;bottom:18px;z-index:76;display:none;align-items:center;gap:10px;max-width:min(520px,calc(100% - 36px));padding:12px;background:rgba(6,6,6,.86);border:1px solid rgba(244,234,216,.14);box-shadow:var(--shadow);backdrop-filter:blur(16px)}.player.show{display:flex}.play-btn{min-width:48px;height:48px;padding:0;border-radius:0;background:linear-gradient(135deg,var(--rust),#e65d38)}.player-meta{min-width:150px;max-width:240px}.player-title{font-weight:900;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.player-sub{font-size:.78rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}.progress{width:150px;height:8px;background:rgba(255,255,255,.1);cursor:pointer;overflow:hidden}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--rust),var(--ember))}.admin{position:fixed;inset:0;z-index:100;display:none;place-items:center;background:rgba(0,0,0,.76);padding:18px}.admin.open{display:grid}.admin-box{width:min(560px,100%);background:#0b0b0b;border:1px solid rgba(255,120,66,.35);box-shadow:var(--shadow);padding:26px}.admin-box h2{margin:0 0 12px;text-transform:uppercase;letter-spacing:.08em}.admin-box input{width:100%;padding:14px;margin:12px 0;background:#151515;border:1px solid var(--line);color:var(--cream)}.admin-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}.hint{font-size:.85rem;color:rgba(244,234,216,.55)}
+@media(max-width:900px){body{background-attachment:scroll}nav{display:none}.hero,.sell,.footer-grid,.grid,.gallery{grid-template-columns:1fr}.photo-frame{min-height:520px}.seal{width:130px}.player{right:18px;left:18px}.progress{flex:1}}
+</style>
 </head>
 <body>
-<header>
-<div class="wrap nav">
-<a class="brand" href="#top"><span class="mark"></span><span>Cannibal</span></a>
-<nav>
-<a href="#agenda">Agenda</a>
-<a href="#assessment">Assessment</a>
-<a href="#reviews">Reviews</a>
-<button id="corruptBtn" type="button">Corrupt Signal</button>
-</nav>
-</div>
-</header>
-<main id="top">
-<section class="wrap hero">
-<div>
-<div class="kicker">New isolated project page · prepared by assistant · not final</div>
-<h1 class="glitch">Cannibal</h1>
-<p class="subtitle">A warm real-life frame, held too long. Midwest sunlight, lawn-green memory, family-photo tenderness — then a thin neon infection in the corners.</p>
-<div class="actions">
-<a class="primary" href="#agenda">Run the four-point agenda</a>
-<a href="#reviews">Read the review layer</a>
-</div>
-</div>
-<aside class="photo-card">
-<div class="float-note">Replace with the real family photo later. Keep it tender before strange.</div>
-</aside>
-</section>
-<section id="agenda" class="wrap">
-<div class="section-head">
-<h2>Four Point Agenda</h2>
-<p>Memory first. Horror second. Keep the symbolism emotional instead of gimmicky.</p>
-</div>
-<div class="grid">
-<article class="card" data-number="01"><h3>Frame</h3><p>Domestic realism gives the project weight.</p></article>
-<article class="card" data-number="02"><h3>Restrain</h3><p>Silence and space make the weirdness believable.</p></article>
-<article class="card" data-number="03"><h3>Corrupt</h3><p>Use signal bleed, scanlines, and chromatic drift as emotional contamination.</p></article>
-<article class="card" data-number="04"><h3>Merge Later</h3><p>Protect the isolated branch until the visual language stabilizes.</p></article>
-<article class="card" data-number="05"><h3>Assessment</h3><p>The emotional reference image is the strongest asset so far.</p></article>
-<article class="card" data-number="06"><h3>Warning</h3><p>If it becomes too literal, the atmosphere collapses into costume-shop horror.</p></article>
-</div>
-</section>
+<header><div class="wrap nav"><div class="logo" id="logoTap" title="Admin access"><img src="./assets/matthew-carpenter-logo.svg" alt="Matthew Carpenter"></div><nav><a href="#about">About</a><a href="#computers">Computers</a><a href="#gallery">Gallery</a><a href="#contact">Contact</a></nav></div></header>
+<main>
+<section class="wrap hero" id="top"><div><div class="kicker">Industrial Midwest • Custom Computers</div><h1>Matthew Carpenter</h1><p>Open-minded, hands-on, and built from real life. I build, fix, clean up, and sell practical computers with no fluff — just solid machines, honest work, and a little industrial bite.</p><div class="button-row"><a class="btn primary" href="#computers">View Computer For Sale</a><a class="btn" href="#contact">Contact Me</a></div></div><div class="photo-frame"><img class="hero-img" src="data:image/jpeg;base64,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" alt="Matthew Carpenter holding a child outdoors"><img class="seal" src="./assets/butcher-seal.svg" alt="Matthew Carpenter seal"><div class="note">Family warmth under steel light. Real person. Real work. No plastic showroom nonsense.</div></div></section>
+<section id="about"><div class="wrap"><h2 class="section-title">Cannibal, but make it useful.</h2><p class="section-copy">The theme is appetite, craft, heat, and pressure — consuming bad systems and rebuilding cleaner ones. Industrial steakhouse energy crossed with a personal computer shop: rough steel, warm fire, Midwest work ethic, and machines that actually run.</p><img class="divider" src="./assets/industrial-divider.svg" alt=""><div class="grid"><article class="card"><h3>Custom Builds</h3><p>Gaming desktops, creator machines, budget upgrades, and practical home systems built around what the user actually needs.</p></article><article class="card"><h3>Repair & Cleanup</h3><p>Slow PC cleanup, Windows reinstalls, malware removal, drive upgrades, RAM upgrades, airflow checks, and basic diagnostics.</p></article><article class="card"><h3>Honest Sales</h3><p>No fake scarcity, no mystery parts, no nonsense. Clear specs, clear price, clean install, and a machine that’s ready to use.</p></article></div></div></section>
+<section id="computers"><div class="wrap sell"><div class="pc-visual" aria-label="Industrial custom desktop visual"></div><div class="specs"><h3>Current Computer For Sale</h3><p>Placeholder build listing. Swap specs/pricing anytime. Built for a clean local-sale page that feels better than a boring Marketplace post.</p><div class="spec-list"><div class="spec"><span>CPU</span><strong>Ryzen 5 5600</strong></div><div class="spec"><span>GPU</span><strong>RTX 3060 12GB</strong></div><div class="spec"><span>RAM</span><strong>16GB DDR4</strong></div><div class="spec"><span>Storage</span><strong>1TB NVMe SSD</strong></div><div class="spec"><span>OS</span><strong>Windows 11 Pro</strong></div><div class="spec"><span>Status</span><strong>Clean / Tested</strong></div></div><div class="price">$650</div><div class="button-row"><a class="btn primary" href="#contact">Interested? Contact Me</a></div></div></div></section>
+<section id="gallery"><div class="wrap"><h2 class="section-title">From The Bench</h2><p class="section-copy">Asset placeholders for future real photos: tower internals, desk setup, stress test screenshots, cable work, parts, before/after cleanup, and finished-sale shots.</p><div class="gallery"><div class="tile"><span>Build</span></div><div class="tile"><span>Repair</span></div><div class="tile"><span>Test</span></div><div class="tile"><span>Sell</span></div></div></div></section>
 </main>
-<footer>
-<div class="wrap">Cannibal · isolated atmospheric build · bearicide/cannibal</div>
-</footer>
+<footer id="contact"><div class="wrap footer-grid"><div><h3>Matthew Carpenter</h3><p>Custom computers, repairs, cleanup, upgrades, and practical systems with an industrial Midwest edge.</p></div><div><h3>Services</h3><ul><li>Custom PCs</li><li>Used PCs For Sale</li><li>Windows Cleanup</li><li>Upgrades</li></ul></div><div><h3>Contact</h3><ul><li>Direct Message</li><li>Local Pickup</li><li>Michigan Area</li><li>Cash / Local Sale Friendly</li></ul></div></div></footer>
+<div class="player" id="miniPlayer"><button class="play-btn" id="playBtn">▶</button><div class="player-meta"><div class="player-title" id="trackTitle">Uploaded Track</div><div class="player-sub">Local admin song</div></div><div class="progress" id="progress"><span id="bar"></span></div><audio id="audio"></audio></div>
+<div class="admin" id="adminPanel"><div class="admin-box"><h2>Hidden Admin</h2><p class="hint">Upload one song for this browser. It appears in the mini-player. GitHub Pages has no server, so this stores locally on the device.</p><input type="file" id="songUpload" accept="audio/*"><input type="text" id="songName" placeholder="Track title"><div class="admin-actions"><button id="saveSong">Save Song</button><button id="clearSong">Clear Song</button><button id="closeAdmin">Close</button></div><p class="hint">Open admin later with <strong>#admin</strong> in the URL or click the logo five times.</p></div></div>
+<div class="open-sign">Signal: Open</div>
 <script>
-const btn = document.getElementById('corruptBtn');
-let corrupted = false;
-btn.addEventListener('click', () => {
-  corrupted = !corrupted;
-  document.body.classList.toggle('corrupt', corrupted);
-  btn.textContent = corrupted ? 'Restore Memory' : 'Corrupt Signal';
-});
+const DB_NAME='cannibal-audio-db',STORE='tracks',KEY='main-song';
+const admin=document.getElementById('adminPanel'),upload=document.getElementById('songUpload'),songName=document.getElementById('songName');
+const saveSong=document.getElementById('saveSong'),clearSong=document.getElementById('clearSong'),closeAdmin=document.getElementById('closeAdmin');
+const player=document.getElementById('miniPlayer'),audio=document.getElementById('audio'),playBtn=document.getElementById('playBtn'),title=document.getElementById('trackTitle');
+const progress=document.getElementById('progress'),bar=document.getElementById('bar');
+function openDB(){return new Promise((resolve,reject)=>{const req=indexedDB.open(DB_NAME,1);req.onupgradeneeded=()=>req.result.createObjectStore(STORE);req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});}
+async function putTrack(data){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).put(data,KEY);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);});}
+async function getTrack(){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction(STORE,'readonly');const req=tx.objectStore(STORE).get(KEY);req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});}
+async function deleteTrack(){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).delete(KEY);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);});}
+async function loadTrack(){const track=await getTrack().catch(()=>null);if(!track)return;audio.src=URL.createObjectURL(track.blob);title.textContent=track.name||'Uploaded Track';player.classList.add('show');}
+saveSong.onclick=async()=>{const file=upload.files[0];if(!file)return alert('Choose an audio file first.');await putTrack({name:songName.value.trim()||file.name,blob:file,type:file.type,saved:Date.now()});await loadTrack();admin.classList.remove('open');};
+clearSong.onclick=async()=>{await deleteTrack();audio.pause();audio.removeAttribute('src');player.classList.remove('show');};closeAdmin.onclick=()=>admin.classList.remove('open');
+playBtn.onclick=()=>{if(audio.paused){audio.play();playBtn.textContent='❚❚'}else{audio.pause();playBtn.textContent='▶'}};audio.onended=()=>playBtn.textContent='▶';audio.ontimeupdate=()=>{bar.style.width=audio.duration?((audio.currentTime/audio.duration)*100)+'%':'0%'};progress.onclick=e=>{if(!audio.duration)return;const r=progress.getBoundingClientRect();audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration};
+let taps=0,timer;document.getElementById('logoTap').onclick=()=>{taps++;clearTimeout(timer);timer=setTimeout(()=>taps=0,900);if(taps>=5){admin.classList.add('open');taps=0;}};if(location.hash.toLowerCase()==='#admin')admin.classList.add('open');loadTrack();
 </script>
 </body>
 </html>
