@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#11170f" />
+  <meta name="description" content="Cannibal — a quiet Midwest memory page slowly corrupted by signal, appetite, and review." />
+  <title>Cannibal</title>
+  <style>
+    :root {
+      --black: #080908;
+      --near: #11170f;
+      --paper: #f2eadb;
+      --cream: #fff6e4;
+      --green: #89a56f;
+      --moss: #46583d;
+      --yellow: #f2d16b;
+      --blood: #8a1f1f;
+      --pink: #ff3fc1;
+      --cyan: #4cf3ff;
+      --soft: rgba(255, 246, 228, 0.75);
+      --glass: rgba(12, 16, 12, 0.72);
+      --line: rgba(255, 246, 228, 0.18);
+      --shadow: 0 28px 80px rgba(0,0,0,.42);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 22% 14%, rgba(242, 209, 107, .20), transparent 28%),
+        radial-gradient(circle at 80% 18%, rgba(76, 243, 255, .12), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(138, 31, 31, .22), transparent 48%),
+        linear-gradient(145deg, #141a10, #080908 62%, #050505);
+      color: var(--cream);
+      font-family: "Bahnschrift", "Arial Narrow", system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .28;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 38px 38px;
+      mix-blend-mode: screen;
+      z-index: 20;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .16;
+      background:
+        repeating-linear-gradient(0deg, transparent 0 3px, rgba(255,255,255,.12) 4px, transparent 5px),
+        radial-gradient(circle at center, transparent 35%, rgba(0,0,0,.75));
+      z-index: 21;
+      animation: scan 6s linear infinite;
+    }
+
+    @keyframes scan {
+      0% { transform: translateY(-12px); }
+      100% { transform: translateY(12px); }
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(18px);
+      background: rgba(8,9,8,.72);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 68px;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .mark {
+      width: 34px;
+      aspect-ratio: 1;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 35% 30%, var(--yellow), transparent 26%),
+        radial-gradient(circle at 66% 62%, var(--blood), transparent 36%),
+        linear-gradient(135deg, var(--green), var(--near));
+      box-shadow: 0 0 22px rgba(242,209,107,.22), inset 0 0 0 1px rgba(255,255,255,.24);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a, button {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.045);
+      color: var(--cream);
+      padding: 10px 13px;
+      border-radius: 999px;
+      font: inherit;
+      cursor: pointer;
+      transition: .22s ease;
+    }
+
+    nav a:hover, button:hover {
+      transform: translateY(-2px);
+      border-color: rgba(242,209,107,.55);
+      box-shadow: 0 0 24px rgba(242,209,107,.12);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 32px;
+      min-height: calc(100vh - 68px);
+      align-items: center;
+      padding: 54px 0 70px;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 20px;
+      padding: 9px 13px;
+      border: 1px solid rgba(242,209,107,.32);
+      border-radius: 999px;
+      background: rgba(242,209,107,.08);
+      color: var(--yellow);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: .78rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(4.2rem, 13vw, 10.5rem);
+      line-height: .78;
+      letter-spacing: -.08em;
+      text-transform: uppercase;
+      text-shadow:
+        2px 0 rgba(255,63,193,.55),
+        -2px 0 rgba(76,243,255,.42),
+        0 22px 52px rgba(0,0,0,.62);
+    }
+
+    .subtitle {
+      max-width: 680px;
+      margin: 28px 0 0;
+      color: rgba(255,246,228,.78);
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      line-height: 1.52;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .primary {
+      background: linear-gradient(135deg, rgba(242,209,107,.92), rgba(137,165,111,.85));
+      color: #12140d;
+      border: 0;
+      font-weight: 900;
+      box-shadow: 0 18px 50px rgba(242,209,107,.18);
+    }
+
+    .photo-card {
+      position: relative;
+      min-height: 520px;
+      border: 1px solid rgba(255,246,228,.22);
+      border-radius: 32px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255,246,228,.16), transparent),
+        radial-gradient(circle at 35% 30%, rgba(137,165,111,.62), transparent 35%),
+        linear-gradient(135deg, #6f7d55, #191f17 58%, #070807);
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+
+    .photo-card::before {
+      content: "";
+      position: absolute;
+      inset: 22px;
+      border-radius: 24px;
+      background:
+        linear-gradient(rgba(255,246,228,.16), rgba(255,246,228,.02)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='1100' viewBox='0 0 900 1100'%3E%3Crect width='900' height='1100' fill='%238ea16d'/%3E%3Ccircle cx='280' cy='350' r='130' fill='%23f0d58c' opacity='.45'/%3E%3Ccircle cx='360' cy='450' r='90' fill='%23f5e2b3' opacity='.42'/%3E%3Crect x='90' y='620' width='720' height='270' rx='28' fill='%232c3a28' opacity='.58'/%3E%3Cpath d='M0 760 C210 690 450 740 900 640 L900 1100 L0 1100Z' fill='%23121b11' opacity='.7'/%3E%3Cpath d='M90 260 L410 120 L790 330 L790 650 L90 650Z' fill='%23ebe1bd' opacity='.18'/%3E%3Cpath d='M120 650 L250 540 L375 650Z' fill='%230b0d0a' opacity='.24'/%3E%3C/svg%3E");
+      background-size: cover;
+      background-position: center;
+      filter: sepia(.22) contrast(1.04) saturate(.86);
+      z-index: -2;
+    }
+
+    .photo-card::after {
+      content: "hold the frame until it starts looking back";
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 24px;
+      padding: 18px;
+      border: 1px solid rgba(255,246,228,.18);
+      border-radius: 20px;
+      background: rgba(8,9,8,.58);
+      color: rgba(255,246,228,.78);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      font-size: .78rem;
+      backdrop-filter: blur(14px);
+    }
+
+    .float-note {
+      position: absolute;
+      top: 30px;
+      right: 24px;
+      max-width: 190px;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,246,228,.84);
+      color: #1a1d13;
+      transform: rotate(3deg);
+      box-shadow: 0 16px 44px rgba(0,0,0,.25);
+      font-size: .9rem;
+      line-height: 1.35;
+    }
+
+    section { padding: 72px 0; }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(2.5rem, 6vw, 5.2rem);
+      line-height: .88;
+      letter-spacing: -.05em;
+      text-transform: uppercase;
+    }
+
+    .section-head p, .card p, .review p {
+      color: rgba(255,246,228,.75);
+      line-height: 1.58;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card, .review, .panel {
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: var(--glass);
+      box-shadow: 0 18px 60px rgba(0,0,0,.24);
+      backdrop-filter: blur(16px);
+    }
+
+    .card {
+      padding: 24px;
+      min-height: 260px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::after {
+      content: attr(data-number);
+      position: absolute;
+      right: 18px;
+      bottom: -8px;
+      font-size: 6rem;
+      opacity: .065;
+      font-weight: 900;
+    }
+
+    .card h3, .review h3 {
+      margin: 0 0 10px;
+      font-size: 1.35rem;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+    }
+
+    .signal {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .panel {
+      padding: 28px;
+      min-height: 330px;
+    }
+
+    .meter {
+      display: grid;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .bar {
+      height: 13px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.09);
+    }
+
+    .bar span {
+      display: block;
+      height: 100%;
+      width: var(--w);
+      background: linear-gradient(90deg, var(--green), var(--yellow), var(--blood), var(--pink), var(--cyan));
+      box-shadow: 0 0 18px rgba(76,243,255,.22);
+      transition: width .4s ease;
+    }
+
+    .quote {
+      font-size: clamp(1.4rem, 3vw, 2.4rem);
+      line-height: 1.12;
+      letter-spacing: -.035em;
+      margin: 0;
+    }
+
+    .reviews {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .review {
+      padding: 24px;
+    }
+
+    .stars {
+      color: var(--yellow);
+      letter-spacing: .16em;
+      margin-bottom: 12px;
+    }
+
+    .terminal {
+      border-radius: 26px;
+      overflow: hidden;
+      border: 1px solid rgba(76,243,255,.24);
+      background: rgba(2,5,5,.78);
+      box-shadow: 0 0 60px rgba(76,243,255,.09);
+    }
+
+    .terminal-top {
+      display: flex;
+      gap: 7px;
+      padding: 13px 16px;
+      background: rgba(255,255,255,.06);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .dot { width: 10px; aspect-ratio: 1; border-radius: 999px; background: var(--yellow); opacity: .8; }
+    .dot:nth-child(2) { background: var(--pink); }
+    .dot:nth-child(3) { background: var(--cyan); }
+
+    pre {
+      margin: 0;
+      padding: 22px;
+      overflow: auto;
+      color: rgba(196,255,205,.86);
+      line-height: 1.55;
+      font-size: .95rem;
+      white-space: pre-wrap;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 0;
+      color: rgba(255,246,228,.58);
+      font-size: .92rem;
+    }
+
+    .glitch {
+      animation: glitch 4.6s infinite steps(1);
+    }
+
+    @keyframes glitch {
+      0%, 92%, 100% { filter: none; transform: translate(0); }
+      93% { filter: hue-rotate(55deg); transform: translate(2px,-1px); }
+      94% { filter: contrast(1.4); transform: translate(-2px,1px); }
+      95% { filter: none; transform: translate(0); }
+    }
+
+    .corrupt .photo-card,
+    .corrupt .card,
+    .corrupt .panel,
+    .corrupt .review {
+      border-color: rgba(255,63,193,.33);
+      box-shadow: 0 0 55px rgba(255,63,193,.08), var(--shadow);
+    }
+
+    .corrupt h1 {
+      text-shadow: 4px 0 rgba(255,63,193,.8), -4px 0 rgba(76,243,255,.72), 0 24px 60px rgba(0,0,0,.72);
+    }
+
+    @media (max-width: 860px) {
+      .nav { align-items: flex-start; padding: 14px 0; flex-direction: column; }
+      nav { justify-content: flex-start; }
+      .hero, .section-head, .signal { grid-template-columns: 1fr; }
+      .hero { padding-top: 34px; }
+      .photo-card { min-height: 460px; }
+      .grid, .reviews { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="Cannibal home"><span class="mark"></span><span>Cannibal</span></a>
+      <nav aria-label="Primary navigation">
+        <a href="#agenda">Agenda</a>
+        <a href="#assessment">Assessment</a>
+        <a href="#reviews">Reviews</a>
+        <button id="corruptBtn" type="button">Corrupt Signal</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="wrap hero">
+      <div>
+        <div class="kicker">New isolated project page · prepared by assistant · not final</div>
+        <h1 class="glitch">Cannibal</h1>
+        <p class="subtitle">
+          A warm real-life frame, held too long. Midwest sunlight, lawn-green memory,
+          family-photo tenderness — then a thin neon infection in the corners. This page
+          starts human and becomes signal.
+        </p>
+        <div class="actions">
+          <a class="primary" href="#agenda">Run the four-point agenda</a>
+          <a href="#reviews">Read the review layer</a>
+        </div>
+      </div>
+
+      <aside class="photo-card" aria-label="Abstract family memory placeholder">
+        <div class="float-note">Insert the real reference photo here later. Keep it honest. Let the weird arrive second.</div>
+      </aside>
+    </section>
+
+    <section id="agenda" class="wrap">
+      <div class="section-head">
+        <h2>Four Point Agenda</h2>
+        <p>
+          Keep the page clean enough to trust, strange enough to remember, and interactive enough
+          that it feels alive without becoming carnival sludge. The cannibal angle is metaphor:
+          art consuming memory, process eating doubt, signal feeding on old noise.
+        </p>
+      </div>
+
+      <div class="grid">
+        <article class="card" data-number="01">
+          <h3>Frame</h3>
+          <p>Start with one image-like emotional center. A domestic scene. Grass. Sunlight. A person holding a child. Ordinary enough to hurt.</p>
+        </article>
+        <article class="card" data-number="02">
+          <h3>Restrain</h3>
+          <p>Let the first screen breathe. Sparse text. No forced lore dump. No cartoon gore. The best horror is usually just attention with bad intentions.</p>
+        </article>
+        <article class="card" data-number="03">
+          <h3>Corrupt</h3>
+          <p>Add glitch, scanlines, chromatic ghosts, and hover effects as slow contamination. The page should feel reviewed by something nonhuman.</p>
+        </article>
+        <article class="card" data-number="04">
+          <h3>Merge Later</h3>
+          <p>Keep this page self-contained until it earns its place. No dependencies. No sprawling asset mess. One clean branch before the wider system eats it.</p>
+        </article>
+        <article class="card" data-number="05">
+          <h3>Assessment Coach Note</h3>
+          <p>Strong concept. The emotional reference photo gives it ballast. The cannibal language works if it stays symbolic: consumption, inheritance, revision.</p>
+        </article>
+        <article class="card" data-number="06">
+          <h3>Risk</h3>
+          <p>Do not over-explain it. If the page gets too literal, it becomes Halloween plastic. Keep it tender first, unsettling second.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="assessment" class="wrap">
+      <div class="signal">
+        <div class="panel">
+          <h2>Signal Read</h2>
+          <p class="quote">“The page should not announce danger. It should remember something until remembering becomes dangerous.”</p>
+          <div class="meter" aria-label="Project assessment meters">
+            <div><span>Emotion</span><div class="bar"><span style="--w: 92%"></span></div></div>
+            <div><span>Restraint</span><div class="bar"><span style="--w: 84%"></span></div></div>
+            <div><span>Glitch Potential</span><div class="bar"><span style="--w: 77%"></span></div></div>
+            <div><span>Cannibal Metaphor</span><div class="bar"><span style="--w: 69%"></span></div></div>
+          </div>
+        </div>
+        <div class="terminal" aria-label="Project log terminal">
+          <div class="terminal-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <pre id="terminalText">SYSTEM REVIEW
+
+repo: bearicide/cannibal
+branch: main
+file: index.html
+status: first pass / isolated
+
+notes:
+- keep photo natural
+- add real image later
+- avoid literal gore
+- use glitch as commentary
+- merge only after the page has a pulse
+
+assessment:
+proper enough, strange enough, not yet overfed.</pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews" class="wrap">
+      <div class="section-head">
+        <h2>Reviews</h2>
+        <p>
+          Built around critique as content: the site judges itself, then invites the visitor to notice
+          what changed. A page with a little mirror in its teeth.
+        </p>
+      </div>
+      <div class="reviews">
+        <article class="review">
+          <div class="stars">★★★★★</div>
+          <h3>Creative Review</h3>
+          <p>Best direction: memory-first design. Let the cannibal theme mean remix, inheritance, devouring your own past to make something less dead.</p>
+        </article>
+        <article class="review">
+          <div class="stars">★★★★☆</div>
+          <h3>Technical Review</h3>
+          <p>Single-file index is the correct first move. Mobile-friendly, no asset dependency, no brittle framework, easy GitHub Pages launch.</p>
+        </article>
+        <article class="review">
+          <div class="stars">★★★★★</div>
+          <h3>Visual Review</h3>
+          <p>The palette wants soft greens, cream, yellow sunlight, and tiny cyan/pink glitches. Midwest documentary slowly haunted by arcade residue.</p>
+        </article>
+        <article class="review">
+          <div class="stars">★★★★☆</div>
+          <h3>Next Review</h3>
+          <p>Next pass should replace the abstract placeholder with the real reference photo, then tune overlay contrast and text placement around it.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">Cannibal · isolated first pass · bearicide.github.io/cannibal · prepared by assistant, not final</div>
+  </footer>
+
+  <script>
+    const btn = document.getElementById('corruptBtn');
+    const terminal = document.getElementById('terminalText');
+    let corrupted = false;
+
+    btn.addEventListener('click', () => {
+      corrupted = !corrupted;
+      document.body.classList.toggle('corrupt', corrupted);
+      btn.textContent = corrupted ? 'Restore Memory' : 'Corrupt Signal';
+      terminal.textContent = corrupted
+        ? `SYSTEM REVIEW\n\ncorruption: active\nvisual layer: neon bleed\nmeaning layer: appetite detected\n\nnotes:\n- the image is still the anchor\n- do not let the gimmick eat the feeling\n- horror works because the page remembers love first\n\nassessment:\nthe signal is hungry, but under control.`
+        : `SYSTEM REVIEW\n\nrepo: bearicide/cannibal\nbranch: main\nfile: index.html\nstatus: first pass / isolated\n\nnotes:\n- keep photo natural\n- add real image later\n- avoid literal gore\n- use glitch as commentary\n- merge only after the page has a pulse\n\nassessment:\nproper enough, strange enough, not yet overfed.`;
+    });
+  </script>
+</body>
+</html>
