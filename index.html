@@ -26,17 +26,20 @@
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
       min-height: 100vh;
       background:
-        radial-gradient(circle at 22% 14%, rgba(242, 209, 107, .20), transparent 28%),
-        radial-gradient(circle at 80% 18%, rgba(76, 243, 255, .12), transparent 30%),
-        radial-gradient(circle at 50% 100%, rgba(138, 31, 31, .22), transparent 48%),
-        linear-gradient(145deg, #141a10, #080908 62%, #050505);
+        linear-gradient(rgba(6,7,6,.55), rgba(6,7,6,.82)),
+        url('./assets/midwest-memory-bg.svg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
       color: var(--cream);
       font-family: "Bahnschrift", "Arial Narrow", system-ui, sans-serif;
       overflow-x: hidden;
+      position: relative;
     }
 
     body::before {
@@ -44,11 +47,9 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      opacity: .28;
-      background-image:
-        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-      background-size: 38px 38px;
+      background-image: url('./assets/noise-overlay.svg');
+      background-size: 320px;
+      opacity: .34;
       mix-blend-mode: screen;
       z-index: 20;
     }
@@ -58,7 +59,7 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      opacity: .16;
+      opacity: .12;
       background:
         repeating-linear-gradient(0deg, transparent 0 3px, rgba(255,255,255,.12) 4px, transparent 5px),
         radial-gradient(circle at center, transparent 35%, rgba(0,0,0,.75));
@@ -72,39 +73,10 @@
     }
 
     a { color: inherit; text-decoration: none; }
-
-    .wrap {
-      width: min(1120px, calc(100% - 32px));
-      margin: 0 auto;
-      position: relative;
-      z-index: 2;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      backdrop-filter: blur(18px);
-      background: rgba(8,9,8,.72);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 68px;
-      gap: 16px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      font-weight: 800;
-    }
+    .wrap { width: min(1120px, calc(100% - 32px)); margin: 0 auto; position: relative; z-index: 2; }
+    header { position: sticky; top: 0; z-index: 30; backdrop-filter: blur(18px); background: rgba(8,9,8,.72); border-bottom: 1px solid var(--line); }
+    .nav { display: flex; align-items: center; justify-content: space-between; min-height: 68px; gap: 16px; }
+    .brand { display: flex; align-items: center; gap: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 800; }
 
     .mark {
       width: 34px;
@@ -117,13 +89,7 @@
       box-shadow: 0 0 22px rgba(242,209,107,.22), inset 0 0 0 1px rgba(255,255,255,.24);
     }
 
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
+    nav { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
 
     nav a, button {
       border: 1px solid var(--line);
@@ -172,10 +138,7 @@
       line-height: .78;
       letter-spacing: -.08em;
       text-transform: uppercase;
-      text-shadow:
-        2px 0 rgba(255,63,193,.55),
-        -2px 0 rgba(76,243,255,.42),
-        0 22px 52px rgba(0,0,0,.62);
+      text-shadow: 2px 0 rgba(255,63,193,.55), -2px 0 rgba(76,243,255,.42), 0 22px 52px rgba(0,0,0,.62);
     }
 
     .subtitle {
@@ -186,12 +149,7 @@
       line-height: 1.52;
     }
 
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 30px;
-    }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
 
     .primary {
       background: linear-gradient(135deg, rgba(242,209,107,.92), rgba(137,165,111,.85));
@@ -207,10 +165,8 @@
       border: 1px solid rgba(255,246,228,.22);
       border-radius: 32px;
       overflow: hidden;
-      background:
-        linear-gradient(180deg, rgba(255,246,228,.16), transparent),
-        radial-gradient(circle at 35% 30%, rgba(137,165,111,.62), transparent 35%),
-        linear-gradient(135deg, #6f7d55, #191f17 58%, #070807);
+      background: linear-gradient(rgba(255,255,255,.02), rgba(0,0,0,.28));
+      backdrop-filter: blur(5px);
       box-shadow: var(--shadow);
       isolation: isolate;
     }
@@ -218,15 +174,11 @@
     .photo-card::before {
       content: "";
       position: absolute;
-      inset: 22px;
-      border-radius: 24px;
+      inset: 0;
       background:
-        linear-gradient(rgba(255,246,228,.16), rgba(255,246,228,.02)),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='1100' viewBox='0 0 900 1100'%3E%3Crect width='900' height='1100' fill='%238ea16d'/%3E%3Ccircle cx='280' cy='350' r='130' fill='%23f0d58c' opacity='.45'/%3E%3Ccircle cx='360' cy='450' r='90' fill='%23f5e2b3' opacity='.42'/%3E%3Crect x='90' y='620' width='720' height='270' rx='28' fill='%232c3a28' opacity='.58'/%3E%3Cpath d='M0 760 C210 690 450 740 900 640 L900 1100 L0 1100Z' fill='%23121b11' opacity='.7'/%3E%3Cpath d='M90 260 L410 120 L790 330 L790 650 L90 650Z' fill='%23ebe1bd' opacity='.18'/%3E%3Cpath d='M120 650 L250 540 L375 650Z' fill='%230b0d0a' opacity='.24'/%3E%3C/svg%3E");
-      background-size: cover;
-      background-position: center;
-      filter: sepia(.22) contrast(1.04) saturate(.86);
-      z-index: -2;
+        radial-gradient(circle at 35% 22%, rgba(255,244,199,.28), transparent 24%),
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.42));
+      mix-blend-mode: screen;
     }
 
     .photo-card::after {
@@ -262,14 +214,7 @@
     }
 
     section { padding: 72px 0; }
-
-    .section-head {
-      display: grid;
-      grid-template-columns: .8fr 1.2fr;
-      gap: 24px;
-      align-items: end;
-      margin-bottom: 24px;
-    }
+    .section-head { display: grid; grid-template-columns: .8fr 1.2fr; gap: 24px; align-items: end; margin-bottom: 24px; }
 
     h2 {
       margin: 0;
@@ -279,16 +224,8 @@
       text-transform: uppercase;
     }
 
-    .section-head p, .card p, .review p {
-      color: rgba(255,246,228,.75);
-      line-height: 1.58;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
+    .section-head p, .card p, .review p { color: rgba(255,246,228,.75); line-height: 1.58; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 
     .card, .review, .panel {
       border: 1px solid var(--line);
@@ -298,47 +235,13 @@
       backdrop-filter: blur(16px);
     }
 
-    .card {
-      padding: 24px;
-      min-height: 260px;
-      position: relative;
-      overflow: hidden;
-    }
+    .card { padding: 24px; min-height: 260px; position: relative; overflow: hidden; }
+    .card::after { content: attr(data-number); position: absolute; right: 18px; bottom: -8px; font-size: 6rem; opacity: .065; font-weight: 900; }
+    .card h3, .review h3 { margin: 0 0 10px; font-size: 1.35rem; text-transform: uppercase; letter-spacing: .03em; }
 
-    .card::after {
-      content: attr(data-number);
-      position: absolute;
-      right: 18px;
-      bottom: -8px;
-      font-size: 6rem;
-      opacity: .065;
-      font-weight: 900;
-    }
-
-    .card h3, .review h3 {
-      margin: 0 0 10px;
-      font-size: 1.35rem;
-      text-transform: uppercase;
-      letter-spacing: .03em;
-    }
-
-    .signal {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      align-items: stretch;
-    }
-
-    .panel {
-      padding: 28px;
-      min-height: 330px;
-    }
-
-    .meter {
-      display: grid;
-      gap: 12px;
-      margin-top: 22px;
-    }
+    .signal { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: stretch; }
+    .panel { padding: 28px; min-height: 330px; }
+    .meter { display: grid; gap: 12px; margin-top: 22px; }
 
     .bar {
       height: 13px;
@@ -357,28 +260,10 @@
       transition: width .4s ease;
     }
 
-    .quote {
-      font-size: clamp(1.4rem, 3vw, 2.4rem);
-      line-height: 1.12;
-      letter-spacing: -.035em;
-      margin: 0;
-    }
-
-    .reviews {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-
-    .review {
-      padding: 24px;
-    }
-
-    .stars {
-      color: var(--yellow);
-      letter-spacing: .16em;
-      margin-bottom: 12px;
-    }
+    .quote { font-size: clamp(1.4rem, 3vw, 2.4rem); line-height: 1.12; letter-spacing: -.035em; margin: 0; }
+    .reviews { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .review { padding: 24px; }
+    .stars { color: var(--yellow); letter-spacing: .16em; margin-bottom: 12px; }
 
     .terminal {
       border-radius: 26px;
@@ -388,14 +273,7 @@
       box-shadow: 0 0 60px rgba(76,243,255,.09);
     }
 
-    .terminal-top {
-      display: flex;
-      gap: 7px;
-      padding: 13px 16px;
-      background: rgba(255,255,255,.06);
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-
+    .terminal-top { display: flex; gap: 7px; padding: 13px 16px; background: rgba(255,255,255,.06); border-bottom: 1px solid rgba(255,255,255,.08); }
     .dot { width: 10px; aspect-ratio: 1; border-radius: 999px; background: var(--yellow); opacity: .8; }
     .dot:nth-child(2) { background: var(--pink); }
     .dot:nth-child(3) { background: var(--cyan); }
@@ -410,16 +288,8 @@
       white-space: pre-wrap;
     }
 
-    footer {
-      border-top: 1px solid var(--line);
-      padding: 28px 0;
-      color: rgba(255,246,228,.58);
-      font-size: .92rem;
-    }
-
-    .glitch {
-      animation: glitch 4.6s infinite steps(1);
-    }
+    footer { border-top: 1px solid var(--line); padding: 28px 0; color: rgba(255,246,228,.58); font-size: .92rem; }
+    .glitch { animation: glitch 4.6s infinite steps(1); }
 
     @keyframes glitch {
       0%, 92%, 100% { filter: none; transform: translate(0); }
@@ -441,6 +311,7 @@
     }
 
     @media (max-width: 860px) {
+      body { background-attachment: scroll; }
       .nav { align-items: flex-start; padding: 14px 0; flex-direction: column; }
       nav { justify-content: flex-start; }
       .hero, .section-head, .signal { grid-template-columns: 1fr; }
@@ -448,168 +319,61 @@
       .photo-card { min-height: 460px; }
       .grid, .reviews { grid-template-columns: 1fr; }
     }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-    }
   </style>
 </head>
 <body>
-  <header>
-    <div class="wrap nav">
-      <a class="brand" href="#top" aria-label="Cannibal home"><span class="mark"></span><span>Cannibal</span></a>
-      <nav aria-label="Primary navigation">
-        <a href="#agenda">Agenda</a>
-        <a href="#assessment">Assessment</a>
-        <a href="#reviews">Reviews</a>
-        <button id="corruptBtn" type="button">Corrupt Signal</button>
-      </nav>
-    </div>
-  </header>
-
-  <main id="top">
-    <section class="wrap hero">
-      <div>
-        <div class="kicker">New isolated project page · prepared by assistant · not final</div>
-        <h1 class="glitch">Cannibal</h1>
-        <p class="subtitle">
-          A warm real-life frame, held too long. Midwest sunlight, lawn-green memory,
-          family-photo tenderness — then a thin neon infection in the corners. This page
-          starts human and becomes signal.
-        </p>
-        <div class="actions">
-          <a class="primary" href="#agenda">Run the four-point agenda</a>
-          <a href="#reviews">Read the review layer</a>
-        </div>
-      </div>
-
-      <aside class="photo-card" aria-label="Abstract family memory placeholder">
-        <div class="float-note">Insert the real reference photo here later. Keep it honest. Let the weird arrive second.</div>
-      </aside>
-    </section>
-
-    <section id="agenda" class="wrap">
-      <div class="section-head">
-        <h2>Four Point Agenda</h2>
-        <p>
-          Keep the page clean enough to trust, strange enough to remember, and interactive enough
-          that it feels alive without becoming carnival sludge. The cannibal angle is metaphor:
-          art consuming memory, process eating doubt, signal feeding on old noise.
-        </p>
-      </div>
-
-      <div class="grid">
-        <article class="card" data-number="01">
-          <h3>Frame</h3>
-          <p>Start with one image-like emotional center. A domestic scene. Grass. Sunlight. A person holding a child. Ordinary enough to hurt.</p>
-        </article>
-        <article class="card" data-number="02">
-          <h3>Restrain</h3>
-          <p>Let the first screen breathe. Sparse text. No forced lore dump. No cartoon gore. The best horror is usually just attention with bad intentions.</p>
-        </article>
-        <article class="card" data-number="03">
-          <h3>Corrupt</h3>
-          <p>Add glitch, scanlines, chromatic ghosts, and hover effects as slow contamination. The page should feel reviewed by something nonhuman.</p>
-        </article>
-        <article class="card" data-number="04">
-          <h3>Merge Later</h3>
-          <p>Keep this page self-contained until it earns its place. No dependencies. No sprawling asset mess. One clean branch before the wider system eats it.</p>
-        </article>
-        <article class="card" data-number="05">
-          <h3>Assessment Coach Note</h3>
-          <p>Strong concept. The emotional reference photo gives it ballast. The cannibal language works if it stays symbolic: consumption, inheritance, revision.</p>
-        </article>
-        <article class="card" data-number="06">
-          <h3>Risk</h3>
-          <p>Do not over-explain it. If the page gets too literal, it becomes Halloween plastic. Keep it tender first, unsettling second.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="assessment" class="wrap">
-      <div class="signal">
-        <div class="panel">
-          <h2>Signal Read</h2>
-          <p class="quote">“The page should not announce danger. It should remember something until remembering becomes dangerous.”</p>
-          <div class="meter" aria-label="Project assessment meters">
-            <div><span>Emotion</span><div class="bar"><span style="--w: 92%"></span></div></div>
-            <div><span>Restraint</span><div class="bar"><span style="--w: 84%"></span></div></div>
-            <div><span>Glitch Potential</span><div class="bar"><span style="--w: 77%"></span></div></div>
-            <div><span>Cannibal Metaphor</span><div class="bar"><span style="--w: 69%"></span></div></div>
-          </div>
-        </div>
-        <div class="terminal" aria-label="Project log terminal">
-          <div class="terminal-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-          <pre id="terminalText">SYSTEM REVIEW
-
-repo: bearicide/cannibal
-branch: main
-file: index.html
-status: first pass / isolated
-
-notes:
-- keep photo natural
-- add real image later
-- avoid literal gore
-- use glitch as commentary
-- merge only after the page has a pulse
-
-assessment:
-proper enough, strange enough, not yet overfed.</pre>
-        </div>
-      </div>
-    </section>
-
-    <section id="reviews" class="wrap">
-      <div class="section-head">
-        <h2>Reviews</h2>
-        <p>
-          Built around critique as content: the site judges itself, then invites the visitor to notice
-          what changed. A page with a little mirror in its teeth.
-        </p>
-      </div>
-      <div class="reviews">
-        <article class="review">
-          <div class="stars">★★★★★</div>
-          <h3>Creative Review</h3>
-          <p>Best direction: memory-first design. Let the cannibal theme mean remix, inheritance, devouring your own past to make something less dead.</p>
-        </article>
-        <article class="review">
-          <div class="stars">★★★★☆</div>
-          <h3>Technical Review</h3>
-          <p>Single-file index is the correct first move. Mobile-friendly, no asset dependency, no brittle framework, easy GitHub Pages launch.</p>
-        </article>
-        <article class="review">
-          <div class="stars">★★★★★</div>
-          <h3>Visual Review</h3>
-          <p>The palette wants soft greens, cream, yellow sunlight, and tiny cyan/pink glitches. Midwest documentary slowly haunted by arcade residue.</p>
-        </article>
-        <article class="review">
-          <div class="stars">★★★★☆</div>
-          <h3>Next Review</h3>
-          <p>Next pass should replace the abstract placeholder with the real reference photo, then tune overlay contrast and text placement around it.</p>
-        </article>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="wrap">Cannibal · isolated first pass · bearicide.github.io/cannibal · prepared by assistant, not final</div>
-  </footer>
-
-  <script>
-    const btn = document.getElementById('corruptBtn');
-    const terminal = document.getElementById('terminalText');
-    let corrupted = false;
-
-    btn.addEventListener('click', () => {
-      corrupted = !corrupted;
-      document.body.classList.toggle('corrupt', corrupted);
-      btn.textContent = corrupted ? 'Restore Memory' : 'Corrupt Signal';
-      terminal.textContent = corrupted
-        ? `SYSTEM REVIEW\n\ncorruption: active\nvisual layer: neon bleed\nmeaning layer: appetite detected\n\nnotes:\n- the image is still the anchor\n- do not let the gimmick eat the feeling\n- horror works because the page remembers love first\n\nassessment:\nthe signal is hungry, but under control.`
-        : `SYSTEM REVIEW\n\nrepo: bearicide/cannibal\nbranch: main\nfile: index.html\nstatus: first pass / isolated\n\nnotes:\n- keep photo natural\n- add real image later\n- avoid literal gore\n- use glitch as commentary\n- merge only after the page has a pulse\n\nassessment:\nproper enough, strange enough, not yet overfed.`;
-    });
-  </script>
+<header>
+<div class="wrap nav">
+<a class="brand" href="#top"><span class="mark"></span><span>Cannibal</span></a>
+<nav>
+<a href="#agenda">Agenda</a>
+<a href="#assessment">Assessment</a>
+<a href="#reviews">Reviews</a>
+<button id="corruptBtn" type="button">Corrupt Signal</button>
+</nav>
+</div>
+</header>
+<main id="top">
+<section class="wrap hero">
+<div>
+<div class="kicker">New isolated project page · prepared by assistant · not final</div>
+<h1 class="glitch">Cannibal</h1>
+<p class="subtitle">A warm real-life frame, held too long. Midwest sunlight, lawn-green memory, family-photo tenderness — then a thin neon infection in the corners.</p>
+<div class="actions">
+<a class="primary" href="#agenda">Run the four-point agenda</a>
+<a href="#reviews">Read the review layer</a>
+</div>
+</div>
+<aside class="photo-card">
+<div class="float-note">Replace with the real family photo later. Keep it tender before strange.</div>
+</aside>
+</section>
+<section id="agenda" class="wrap">
+<div class="section-head">
+<h2>Four Point Agenda</h2>
+<p>Memory first. Horror second. Keep the symbolism emotional instead of gimmicky.</p>
+</div>
+<div class="grid">
+<article class="card" data-number="01"><h3>Frame</h3><p>Domestic realism gives the project weight.</p></article>
+<article class="card" data-number="02"><h3>Restrain</h3><p>Silence and space make the weirdness believable.</p></article>
+<article class="card" data-number="03"><h3>Corrupt</h3><p>Use signal bleed, scanlines, and chromatic drift as emotional contamination.</p></article>
+<article class="card" data-number="04"><h3>Merge Later</h3><p>Protect the isolated branch until the visual language stabilizes.</p></article>
+<article class="card" data-number="05"><h3>Assessment</h3><p>The emotional reference image is the strongest asset so far.</p></article>
+<article class="card" data-number="06"><h3>Warning</h3><p>If it becomes too literal, the atmosphere collapses into costume-shop horror.</p></article>
+</div>
+</section>
+</main>
+<footer>
+<div class="wrap">Cannibal · isolated atmospheric build · bearicide/cannibal</div>
+</footer>
+<script>
+const btn = document.getElementById('corruptBtn');
+let corrupted = false;
+btn.addEventListener('click', () => {
+  corrupted = !corrupted;
+  document.body.classList.toggle('corrupt', corrupted);
+  btn.textContent = corrupted ? 'Restore Memory' : 'Corrupt Signal';
+});
+</script>
 </body>
 </html>
