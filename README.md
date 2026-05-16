@@ -1,24 +1,54 @@
 # Cannibal Cave
 
-Industrial steakhouse concept site by Matthew Carpenter.
+Industrial steakhouse concept site by Matthew Carpenter. Website and media by MATTBEAR MEDIA.
 
-## Features
+## Live Site
+
+https://bearicide.github.io/cannibal/
+
+## Repo
+
+https://github.com/bearicide/cannibal
+
+## Current Features
 
 - Cinematic industrial steakhouse landing page
 - Responsive single-page restaurant layout
-- Menu, reservations, careers, gallery, and events sections
+- Menu, gallery, private events, careers, contact, and hours sections
 - Tiny one-shot mini music player
-- Atmospheric CRT/noise overlays
-- High-end steakhouse photography assets
+- Hidden admin panel with saved background theme controls
+- MATTBEAR MEDIA separated from Matthew Carpenter owner/operator identity
+- Graceful image fallback cards if binary assets are missing
+- Clickable phone, email, and website contact links
 
-## Recommended Asset Structure
+## Hidden Admin
 
-/assets
-  steak-ribeye.webp
-  wedge-salad.webp
-  fire-cocktail.webp
-  dining-room.webp
-  Cannibal Cave.mp3
+Open the hidden admin panel by either:
+
+- Clicking the Cannibal Cave logo 5 times
+- Adding `#admin` to the live URL
+
+Available saved themes:
+
+- Default Cave
+- Ember Room
+- Bone & Brass
+- Cold Steel
+- Butcher Red
+
+## Expected Asset Structure
+
+Place final binary assets here:
+
+```text
+/assets/steak-ribeye.webp
+/assets/wedge-salad.webp
+/assets/fire-cocktail.webp
+/assets/dining-room.webp
+/assets/Cannibal Cave Jam.mp3
+```
+
+The site has visual fallbacks for missing images, but the real photography and MP3 must physically exist in `/assets/` for final production playback/display.
 
 ## Visual Identity Assets
 
@@ -46,18 +76,10 @@ Industrial steakhouse concept site by Matthew Carpenter.
 - Amber whiskey tones
 - Luxury bar atmosphere
 
-## Live Site
-
-https://bearicide.github.io/cannibal/
-
-## Repo
-
-https://github.com/bearicide/cannibal
-
 ## Theme Notes
 
 Dark industrial luxury steakhouse.
 Warm ember lighting.
 Steel, smoke, leather, glass, and fire.
 
-"Good Meat. No Apologies."
+"We're Crazy for Meat."
