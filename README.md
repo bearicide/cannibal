@@ -20,6 +20,32 @@ Industrial steakhouse concept site by Matthew Carpenter.
   dining-room.webp
   Cannibal Cave.mp3
 
+## Visual Identity Assets
+
+### Dining Room
+- Dark luxury steakhouse interior
+- Black steel and leather booth atmosphere
+- Fireplace centerpiece
+- Warm amber chandelier lighting
+
+### Steak Entrée
+- Medium-rare ribeye presentation
+- Roasted garlic
+- Wine pairing
+- Cinematic restaurant plating
+
+### Wedge Salad
+- Blue cheese crumble
+- Bacon pieces
+- Cream-heavy dressing
+- Fine dining plating
+
+### Fire Cocktail
+- Smoked old fashioned aesthetic
+- Flame garnish
+- Amber whiskey tones
+- Luxury bar atmosphere
+
 ## Live Site
 
 https://bearicide.github.io/cannibal/
