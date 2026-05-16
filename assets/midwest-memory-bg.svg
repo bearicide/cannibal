@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100" role="img" aria-label="Abstract Midwest memory background with grass, house light, and soft corruption">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f1dfaa"/>
+      <stop offset="0.34" stop-color="#9aaa70"/>
+      <stop offset="0.68" stop-color="#273522"/>
+      <stop offset="1" stop-color="#080908"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="31%" cy="24%" r="38%">
+      <stop offset="0" stop-color="#fff4c7" stop-opacity="0.86"/>
+      <stop offset="0.24" stop-color="#f2d16b" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#f2d16b" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="4" seed="23"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.16"/>
+      </feComponentTransfer>
+    </filter>
+    <filter id="blur"><feGaussianBlur stdDeviation="12"/></filter>
+  </defs>
+  <rect width="1600" height="1100" fill="url(#sky)"/>
+  <rect width="1600" height="1100" fill="url(#sun)"/>
+  <path d="M0 706 C230 604 397 690 612 626 C825 563 1036 552 1600 414 L1600 1100 L0 1100Z" fill="#182416" opacity="0.78"/>
+  <path d="M0 827 C299 721 514 844 779 759 C1044 674 1200 714 1600 602 L1600 1100 L0 1100Z" fill="#10170f" opacity="0.86"/>
+  <path d="M118 452 L522 232 L926 454 L926 732 L118 732Z" fill="#f8e7bd" opacity="0.18"/>
+  <path d="M186 499 L522 321 L858 501 L858 707 L186 707Z" fill="#1d271c" opacity="0.25"/>
+  <rect x="250" y="536" width="156" height="121" rx="10" fill="#f3d777" opacity="0.18"/>
+  <rect x="627" y="512" width="178" height="145" rx="10" fill="#f7efd2" opacity="0.13"/>
+  <circle cx="480" cy="458" r="86" fill="#fff4c7" opacity="0.38" filter="url(#blur)"/>
+  <circle cx="610" cy="539" r="64" fill="#fff4c7" opacity="0.22" filter="url(#blur)"/>
+  <path d="M210 780 C340 696 450 705 552 785 C647 862 760 865 893 797 C1001 741 1135 743 1283 813" fill="none" stroke="#d8c68f" stroke-width="5" opacity="0.13"/>
+  <path d="M1180 150 L1314 145 L1300 164 L1466 162" fill="none" stroke="#4cf3ff" stroke-width="3" opacity="0.19"/>
+  <path d="M1070 224 L1179 220 L1167 239 L1405 236" fill="none" stroke="#ff3fc1" stroke-width="3" opacity="0.13"/>
+  <path d="M180 884 L345 871 L334 895 L558 889" fill="none" stroke="#8a1f1f" stroke-width="6" opacity="0.19"/>
+  <rect width="1600" height="1100" filter="url(#grain)" opacity="0.72"/>
+  <rect width="1600" height="1100" fill="none" stroke="#fff6e4" stroke-opacity="0.06" stroke-width="28"/>
+</svg>
